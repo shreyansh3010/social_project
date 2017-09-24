@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#595959</color>
+    <color name="colorPrimaryDark">#3d3d3d</color>
+    <color name="colorAccent">#e84c3d</color>
+    <color name="spinner">#ffffff</color>
+    <color name="top_bar_background">#666960</color>
+    <color name="top_bar_text_color">#f7b021</color>
+    <color name="app_background">#EEEEEE</color>
+    <color name="home_list_background_color">#DCE1E3</color>
+    <color name="scanned_data_text_color">#D52736</color>
+    <color name="scanned_data_item_border">#828790</color>
+    <color name="action_save_background">#FAB50F</color>
+    <color name="action_cancel_background">#d62736</color>
+    <color name="white">#FFFFFF</color>
+    <color name="Graycolor">#817e7e</color>
+
+    <color name="colorVisited">#e84c3d</color>
+    <color name="colorNext">#22e84c3d</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>

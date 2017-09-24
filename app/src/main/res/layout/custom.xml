@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/custom_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/avi"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="sdsdsd"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="15sp" />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:indicatorColor="#ffffff"
+        android:elevation="20dp"
+        android:visibility="visible"
+        app:indicatorName="BallTrianglePathIndicator" />
+
+
+
+</RelativeLayout>
