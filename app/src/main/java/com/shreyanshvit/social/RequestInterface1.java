@@ -14,6 +14,6 @@ import retrofit2.http.Query;
  */
 
 public interface RequestInterface1 {
-    @GET("getguest.php")
+    @GET("getproduct.php")
     Call<Result> getResult(@Query("product_id") String product_id);
 }

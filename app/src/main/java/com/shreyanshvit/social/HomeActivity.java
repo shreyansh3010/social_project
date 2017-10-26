@@ -34,30 +34,36 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
+import java.io.InputStreamReader;
 import java.io.StringReader;
 
 import io.victoralbertos.breadcumbs_view.BreadcrumbsView;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static java.security.AccessController.getContext;
+
 public class HomeActivity extends AppCompatActivity {
 
     private Integer cacheCurrentStep;
     private BreadcrumbsView breadcrumbsView;
     // variables to store extracted xml data
-    String uid,name,gender,yearOfBirth,careOf,villageTehsil,postOffice,district,state,postCode,product_id,product_name,product_cat,product_mrp,email,mobile,address;
+    String uid,name,gender,yearOfBirth,careOf,villageTehsil,postOffice,district,state,postCode,product_id,product_name,product_cat,product_mrp,email,mobile,address,age="23";
 
     // UI Elements
     TextView tv_sd_uid,tv_sd_name,tv_sd_gender,tv_sd_yob,tv_sd_co,tv_sd_vtc,tv_sd_po,tv_sd_dist,
             tv_sd_state,tv_sd_pc,tv_cancel_action,tv_welcome_message,prd_id,prd_name,prd_cat,prd_mrp,dialog_uid,dialog_name,dialog_mobile,dialog_address,dialog_email,dialog_product,dialog_total;
     LinearLayout ll_action_button_wrapper;
     CardView ll_scanned_data_wrapper,ll_data_wrapper, ll_product_wrapper,ll_detail_wrapper,ll_final_wrapper;
-    Button scan,scan_back,next,detail_btn;
+    Button scan,scan_back,next,detail_btn,confrim,discard;
 
     EditText mEmail, mMobile;
 
@@ -100,6 +106,9 @@ public class HomeActivity extends AppCompatActivity {
         dialog_product = (TextView) findViewById(R.id.dialog_prd);
         dialog_total = (TextView) findViewById(R.id.dialog_total);
         dialog_uid = (TextView) findViewById(R.id.dialog_uid);
+        confrim = (Button) findViewById(R.id.confrim);
+        discard = (Button) findViewById(R.id.discard);
+
 
         mEmail = (EditText) findViewById(R.id.email);
         mMobile = (EditText) findViewById(R.id.mobileNo);
@@ -240,6 +249,58 @@ public class HomeActivity extends AppCompatActivity {
                                                 dialog_product.setText(product_name);
                                                 dialog_total.setText(product_mrp+"/-");
                                                 ll_final_wrapper.setVisibility(View.VISIBLE);
+                                                confrim.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+                                                        dialog.show();
+                                                        RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://hotelgirnar.ml/social/").build();
+                                                        Billinvoice serviceApi = restAdapter.create(Billinvoice.class);
+                                                        serviceApi.senBill(
+                                                                email,
+                                                                mobile,
+                                                                uid,
+                                                                name,
+                                                                villageTehsil,
+                                                                district,
+                                                                state,
+                                                                address,
+                                                                gender,
+                                                                age,
+                                                                product_name,
+                                                                product_mrp,
+                                                                product_cat,
+                                                                new retrofit.Callback<retrofit.client.Response>() {
+                                                                    @Override
+                                                                    public void success(retrofit.client.Response response, retrofit.client.Response response2) {
+                                                                        BufferedReader reader = null;
+                                                                        String result = "";
+
+                                                                        try {
+                                                                            reader = new BufferedReader(new InputStreamReader(response.getBody().in()));
+                                                                            result = reader.readLine();
+                                                                        } catch (Exception ex) {
+                                                                            ex.printStackTrace();
+                                                                        }
+                                                                        dialog.dismiss();
+                                                                        Toast.makeText(HomeActivity.this, result, Toast.LENGTH_LONG).show();
+                                                                    }
+
+                                                                    @Override
+                                                                    public void failure(RetrofitError error) {
+                                                                        dialog.dismiss();
+                                                                        Toast.makeText(HomeActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }
+
+                                                        );
+                                                    }
+                                                });
+                                                discard.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+
+                                                    }
+                                                });
                                             }
                                             else{
                                                 Toast.makeText(getApplicationContext(),"Empty fields not allowed!",Toast.LENGTH_LONG).show();
