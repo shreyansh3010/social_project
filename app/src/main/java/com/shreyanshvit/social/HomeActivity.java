@@ -39,6 +39,7 @@ import java.io.IOException;
 
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.util.Calendar;
 
 import io.victoralbertos.breadcumbs_view.BreadcrumbsView;
 import retrofit.RestAdapter;
@@ -56,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
     private Integer cacheCurrentStep;
     private BreadcrumbsView breadcrumbsView;
     // variables to store extracted xml data
-    String uid,name,gender,yearOfBirth,careOf,villageTehsil,postOffice,district,state,postCode,product_id,product_name,product_cat,product_mrp,email,mobile,address,age="23";
+    String uid,name,gender,yearOfBirth,careOf,villageTehsil,postOffice,district,state,postCode,product_id,product_name,product_cat,product_mrp,email,mobile,address,age;
 
     // UI Elements
     TextView tv_sd_uid,tv_sd_name,tv_sd_gender,tv_sd_yob,tv_sd_co,tv_sd_vtc,tv_sd_po,tv_sd_dist,
@@ -265,7 +266,7 @@ public class HomeActivity extends AppCompatActivity {
                                                                 state,
                                                                 address,
                                                                 gender,
-                                                                age,
+                                                                calAge(yearOfBirth),
                                                                 product_name,
                                                                 product_mrp,
                                                                 product_cat,
@@ -327,6 +328,13 @@ public class HomeActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(getApplicationContext(),"No scan data received!", Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    private String calAge(String i) {
+        int dob = Integer.parseInt(i);
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        return String.valueOf(year-dob);
     }
 
     /**
@@ -453,6 +461,7 @@ public class HomeActivity extends AppCompatActivity {
         return true;
 
     }
+
 
 }// EO class
 

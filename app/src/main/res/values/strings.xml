@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">social</string>
+    <string name="app_name">Business Analytics</string>
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -29,4 +29,6 @@
     <string name="no_saved_card">There Is no Saved Aadhar Card</string>
     <string name="label_home">HOME</string>
     <string name="label_delete">DELETE</string>
+    <string name="title_activity_graph">Analytics</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
